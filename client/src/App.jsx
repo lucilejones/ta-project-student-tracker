@@ -1,6 +1,4 @@
-import { useState } from 'react'
 import './App.css'
-import axios from 'axios';
 import { Routes, Route } from 'react-router-dom';
 import Auth from './components/Auth';
 import Navbar from './components/Navbar';
