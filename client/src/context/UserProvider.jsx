@@ -5,8 +5,8 @@ export const UserContext = React.createContext();
 
 export default function UserProvider(props) {
     const initState = {
-        user: {},
-        token: "",
+        user: JSON.parse(localStorage.getItem("user")) || {},
+        token: localStorage.getItem("token") || "",
         students: []
     }
 
@@ -15,6 +15,16 @@ export default function UserProvider(props) {
     async function signup(credentials) {
         try {
             const res = await axios.post('/api/auth/signup', credentials);
+            const { user, token } = res.data;
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify(user));
+            setUserState(prevUserState => {
+                return {
+                    ...prevUserState,
+                    user: user,
+                    token: token
+                }
+            })
             console.log(res.data);
         } catch (error) {
             console.log(error)
@@ -24,9 +34,35 @@ export default function UserProvider(props) {
     async function login(credentials) {
         try {
             const res = await axios.post('/api/auth/login', credentials);
+            const { user, token } = res.data;
+            localStorage.setItem("token", token);
+            localStorage.setItem("user", JSON.stringify(user));
+            setUserState(prevUserState => {
+                return {
+                    ...prevUserState,
+                    user: user,
+                    token: token
+                }
+            })
             console.log(res.data);
         } catch (error) {
             console.log(error)
+        }
+    }
+
+    async function logout() {
+        try {
+            localStorage.removeItem("user");
+            localStorage.removeItem("token");
+            setUserState(prevUserState => {
+                return {
+                    ...prevUserState,
+                    user: {},
+                    token: ""
+                }
+            })
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -34,7 +70,8 @@ export default function UserProvider(props) {
         <UserContext.Provider value={{
             ...userState,
             signup,
-            login
+            login,
+            logout
         }}>
             {props.children}
         </UserContext.Provider>

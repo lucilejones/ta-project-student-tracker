@@ -1,7 +1,12 @@
+import React, { useContext } from 'react';
+import { UserContext } from '../context/UserProvider';
+
 export default function Profile() {
+    const { user } = useContext(UserContext);
+
     return (
         <>
-            <p>Profile works!</p>
+            <p>Hello, {user.username}!</p>
         </>
     );
 }

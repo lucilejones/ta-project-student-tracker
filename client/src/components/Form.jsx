@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 export default function Form(props) {
     const {isMember, submit} = props;
 
-    const initState = {username: "", password: ""}
+    const initState = {username: "", email: "", password: ""}
     const [formData, setFormData] = useState(initState);
 
     function handleChange(e) {
@@ -31,6 +31,16 @@ export default function Form(props) {
                 value={formData.username}
                 onChange={handleChange}
             />
+            {
+                !isMember &&
+                <input
+                    type="text"
+                    placeholder='Email'
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                />
+            }
             <input
                 type="text"
                 placeholder="Password"
@@ -38,7 +48,6 @@ export default function Form(props) {
                 value={formData.password}
                 onChange={handleChange}
             />
-
             <button>{isMember ? "Login" : "Signup"}</button>
         </form>
     );
