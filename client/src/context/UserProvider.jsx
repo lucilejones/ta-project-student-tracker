@@ -3,6 +3,14 @@ import axios from 'axios';
 
 export const UserContext = React.createContext();
 
+const userAxios = axios.create();
+
+userAxios.interceptors.request.use(config => {
+    const token = localStorage.getItem("token");
+    config.headers.Authorization = `Bearer ${token}`;
+    return config;
+})
+
 export default function UserProvider(props) {
     const initState = {
         user: JSON.parse(localStorage.getItem("user")) || {},
@@ -66,12 +74,42 @@ export default function UserProvider(props) {
         }
     }
 
+    async function getUserStudents() {
+        try {
+            const res = await userAxios.get('/api/main/students/byInstructor');
+            setUserState(prevUserState => {
+                return {
+                    ...prevUserState,
+                    students: res.data
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function addStudent(newStudent) {
+        try {
+            const res = await userAxios.post('/api/main/students', newStudent);
+            setUserState(prevUserState => {
+                return {
+                    ...prevUserState,
+                    students: [...prevUserState, res.data]
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     return (
         <UserContext.Provider value={{
             ...userState,
             signup,
             login,
-            logout
+            logout,
+            getUserStudents,
+            addStudent
         }}>
             {props.children}
         </UserContext.Provider>
