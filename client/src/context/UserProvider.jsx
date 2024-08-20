@@ -115,7 +115,7 @@ export default function UserProvider(props) {
 
     async function deleteStudent(studentId) {
         try {
-            const res = await userAxios.delete('/api/main/students/${studentId}');
+            const res = await userAxios.delete(`/api/main/students/${studentId}`);
             setAllStudents(prevStudents => prevStudents.filter(student => student._id !== studentId));
             setUserState(prevUserState => {
                 return {
@@ -130,7 +130,7 @@ export default function UserProvider(props) {
 
     async function editStudent(studentId, updatedStudentInfo) {
         try {
-            const res = await userAxios.put('/api/main/stuents/${studentId}', updatedStudentInfo);
+            const res = await userAxios.put(`/api/main/students/${studentId}`, updatedStudentInfo);
             setAllStudents(prevStudents => prevStudents.map(student => student._id !== studentId ? student : res.data));
             setUserState(prevUserState => {
                 return {
