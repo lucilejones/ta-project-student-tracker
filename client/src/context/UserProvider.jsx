@@ -20,6 +20,8 @@ export default function UserProvider(props) {
 
     const [userState, setUserState] = useState(initState);
 
+    const [allStudents, setAllStudents] = useState([]);
+
     async function signup(credentials) {
         try {
             const res = await axios.post('/api/auth/signup', credentials);
@@ -88,13 +90,52 @@ export default function UserProvider(props) {
         }
     }
 
+    async function getAllStudents() {
+        try {
+            const res = await userAxios.get('/api/main/students/allStudents');
+            setAllStudents(res.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
     async function addStudent(newStudent) {
         try {
             const res = await userAxios.post('/api/main/students', newStudent);
             setUserState(prevUserState => {
                 return {
                     ...prevUserState,
-                    students: [...prevUserState, res.data]
+                    students: [...prevUserState.students, res.data]
+                }
+            })
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    async function deleteStudent(studentId) {
+        try {
+            const res = await userAxios.delete('/api/main/students/${studentId}');
+            setAllStudents(prevStudents => prevStudents.filter(student => student._id !== studentId));
+            setUserState(prevUserState => {
+                return {
+                    ...prevUserState,
+                    students: prevUserState.students.filter(student => student._id !== studentId)
+                }
+            })
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    async function editStudent(studentId, updatedStudentInfo) {
+        try {
+            const res = await userAxios.put('/api/main/stuents/${studentId}', updatedStudentInfo);
+            setAllStudents(prevStudents => prevStudents.map(student => student._id !== studentId ? student : res.data));
+            setUserState(prevUserState => {
+                return {
+                    ...prevUserState,
+                    students: prevUserState.students.map(student => student._id !== studentId ? student : res.data)
                 }
             })
         } catch (error) {
@@ -109,7 +150,11 @@ export default function UserProvider(props) {
             login,
             logout,
             getUserStudents,
-            addStudent
+            getAllStudents,
+            allStudents,
+            addStudent,
+            deleteStudent,
+            editStudent
         }}>
             {props.children}
         </UserContext.Provider>

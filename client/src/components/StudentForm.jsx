@@ -32,25 +32,33 @@ export default function() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <>
+        <div>
+            <p>Add a Student</p>
+        </div>
+            <form onSubmit={handleSubmit}>
+            <label htmlFor="firstName">First Name</label>
             <input 
                 type="text"
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
             />
+            <label htmlFor="lastName">Last Name</label>
             <input 
                 type="text"
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleChange}
             />
+            <label htmlFor="currLevel">Current Level</label>
             <input 
                 type="number"
                 name="currLevel"
                 value={formData.currLevel}
                 onChange={handleChange}
             />
+            <label htmlFor="progressPoint">Progress Point</label>
             <input 
                 type="number"
                 name="progressPoint"
@@ -59,5 +67,7 @@ export default function() {
             />
             <button>Add Student</button>
         </form>
+        </>
+
     )
 }

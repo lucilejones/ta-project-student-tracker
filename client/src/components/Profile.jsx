@@ -15,6 +15,7 @@ export default function Profile() {
         <>
             <p>Hello, {user.username}!</p>
             <StudentForm />
+            <p>Your Students</p>
             <StudentList students={students}/>
         </>
     );

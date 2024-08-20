@@ -6,6 +6,9 @@ export default function Student(props) {
             <p>Level: {currLevel}</p>
             <p>Story Point: {progressPoint}</p>
             {/* <p>Assigned To: {assignedInstr}</p> */}
+            {/* {if logged in user is instructor display edit and delete} */}
+            <button>Delete</button>
+            <button>Edit</button>
         </div>
     )
 }

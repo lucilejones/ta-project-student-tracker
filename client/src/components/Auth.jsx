@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import Form from './Form';
+import AuthForm from '../components/AuthForm'
 import { UserContext } from '../context/UserProvider';
 
 export default function Auth() {
@@ -16,7 +16,7 @@ export default function Auth() {
             {
                 isMember ?
                 <>
-                    <Form
+                    <AuthForm
                         isMember = {isMember}
                         submit={login}
                     />
@@ -24,7 +24,7 @@ export default function Auth() {
                 </> :
 
                 <>
-                    <Form
+                    <AuthForm
                         isMember = {isMember}
                         submit={signup}
                     />
