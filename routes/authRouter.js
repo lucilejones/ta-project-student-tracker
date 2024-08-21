@@ -29,7 +29,8 @@ authRouter.post('/login', async(req, res, next) => {
             return next(new Error("Incorrect username or password."));
         }
 
-        if(req.body.password !== user.password) {
+        const passwordCheck = await user.checkPassword(req.body.password);
+        if(!passwordCheck) {
             res.status(403);
             return next(new Error("Incorrect username or password."));
         }
