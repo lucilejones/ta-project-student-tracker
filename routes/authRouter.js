@@ -13,8 +13,8 @@ authRouter.post('/signup', async(req, res, next) => {
         
         const newUser = new User(req.body);
         const savedUser = await newUser.save();
-        const token = jwt.sign(savedUser.toObject(), process.env.SECRET);
-        return res.status(201).send({user: savedUser, token});
+        const token = jwt.sign(savedUser.withoutPassword(), process.env.SECRET);
+        return res.status(201).send({user: savedUser.withoutPassword(), token});
     } catch (error) {
         res.status(500);
         return next(error);
@@ -29,14 +29,14 @@ authRouter.post('/login', async(req, res, next) => {
             return next(new Error("Incorrect username or password."));
         }
 
-        const passwordCheck = await user.checkPassword(req.body.password);
-        if(!passwordCheck) {
+        const isMatch = await user.checkPassword(req.body.password);
+        if(!isMatch) {
             res.status(403);
             return next(new Error("Incorrect username or password."));
         }
 
-        const token = jwt.sign(user.toObject(), process.env.SECRET);
-        return res.status(200).send({user, token});
+        const token = jwt.sign(user.withoutPassword(), process.env.SECRET);
+        return res.status(200).send({user: user.withoutPassword(), token});
     } catch (error) {
         res.status(500);
         return next(error);

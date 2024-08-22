@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export default function Form(props) {
-    const {isMember, submit} = props;
+    const {isMember, submit, errMsg} = props;
 
     const initState = {username: "", email: "", password: ""}
     const [formData, setFormData] = useState(initState);
@@ -49,6 +49,7 @@ export default function Form(props) {
                 onChange={handleChange}
             />
             <button>{isMember ? "Login" : "Signup"}</button>
+            <p style={{color: "red"}}>{errMsg}</p>
         </form>
     );
 }

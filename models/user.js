@@ -40,5 +40,11 @@ userSchema.methods.checkPassword = async function(passwordAttempt) {
     }
 }
 
+userSchema.methods.withoutPassword = function() {
+    const user = this.toObject();
+    delete user.password;
+    return user;
+}
+
 
 module.exports = mongoose.model("User", userSchema);

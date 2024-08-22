@@ -15,7 +15,8 @@ export default function UserProvider(props) {
     const initState = {
         user: JSON.parse(localStorage.getItem("user")) || {},
         token: localStorage.getItem("token") || "",
-        students: []
+        students: [],
+        errMsg: ""
     }
 
     const [userState, setUserState] = useState(initState);
@@ -37,7 +38,8 @@ export default function UserProvider(props) {
             })
             console.log(res.data);
         } catch (error) {
-            console.log(error)
+            // console.log(error)
+            handleAuthErr(error.response.data.errMsg);
         }
     }
 
@@ -56,7 +58,8 @@ export default function UserProvider(props) {
             })
             console.log(res.data);
         } catch (error) {
-            console.log(error)
+            // console.log(error)
+            handleAuthErr(error.response.data.errMsg);
         }
     }
 
@@ -74,6 +77,24 @@ export default function UserProvider(props) {
         } catch (error) {
             console.log(error);
         }
+    }
+
+    function handleAuthErr(errMsg) {
+        setUserState(prevUserState => {
+            return {
+                ...prevUserState,
+                errMsg
+            }
+        })
+    }
+
+    function resetAuthErr() {
+        setUserState(prevUserState => {
+            return {
+                ...prevUserState,
+                errMsg: ""
+            }
+        })
     }
 
     async function getUserStudents() {
@@ -143,6 +164,8 @@ export default function UserProvider(props) {
         }
     }
 
+    console.log(userState.user);
+
     return (
         <UserContext.Provider value={{
             ...userState,
@@ -154,7 +177,8 @@ export default function UserProvider(props) {
             allStudents,
             addStudent,
             deleteStudent,
-            editStudent
+            editStudent,
+            resetAuthErr
         }}>
             {props.children}
         </UserContext.Provider>
