@@ -21,6 +21,10 @@ const studentSchema = new Schema({
     assignedInstr: {
         type: Schema.Types.ObjectId,
         ref: "User"
+    },
+    instrName: {
+        type: String,
+        required: true
     }
 })
 

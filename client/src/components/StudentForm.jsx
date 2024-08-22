@@ -33,10 +33,10 @@ export default function() {
 
     return (
         <>
-        <div>
+            <div className="student-form-container">
             <p>Add a Student</p>
-        </div>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className="student-form">
+            <div>
             <label htmlFor="firstName">First Name</label>
             <input 
                 type="text"
@@ -44,6 +44,8 @@ export default function() {
                 value={formData.firstName}
                 onChange={handleChange}
             />
+            </div>
+            <div>
             <label htmlFor="lastName">Last Name</label>
             <input 
                 type="text"
@@ -51,6 +53,8 @@ export default function() {
                 value={formData.lastName}
                 onChange={handleChange}
             />
+            </div>
+            <div>
             <label htmlFor="currLevel">Current Level</label>
             <input 
                 type="number"
@@ -58,6 +62,8 @@ export default function() {
                 value={formData.currLevel}
                 onChange={handleChange}
             />
+            </div>
+            <div>
             <label htmlFor="progressPoint">Progress Point</label>
             <input 
                 type="number"
@@ -65,8 +71,10 @@ export default function() {
                 value={formData.progressPoint}
                 onChange={handleChange}
             />
+            </div>
             <button>Add Student</button>
         </form>
+        </div>
         </>
 
     )

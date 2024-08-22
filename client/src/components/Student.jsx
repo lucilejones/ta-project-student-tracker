@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { UserContext } from "../context/UserProvider";
 
 export default function Student(props) {
-    const {firstName, lastName, currLevel, progressPoint, assignedInstr, _id } = props;
+    const {firstName, lastName, currLevel, progressPoint, assignedInstr, _id, instrName } = props;
     const {user, deleteStudent, editStudent} = useContext(UserContext);
     
     const [isEditMode, setIsEditMode] = useState(false);
@@ -63,11 +63,11 @@ export default function Student(props) {
             <button>Save</button>
         </form>
         :
-        <div>
+        <div className="student-container">
             <h3>{firstName} {lastName}</h3>
             <p>Level: {currLevel}</p>
             <p>Progress Point: {progressPoint}</p>
-            {/* <p>Assigned To: {assignedInstr}</p> */}
+            <p>Assigned To: {instrName}</p>
             {isUser &&
                 <>
                     <button onClick={() => deleteStudent(_id)}>Delete</button>

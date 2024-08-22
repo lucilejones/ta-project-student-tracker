@@ -4,6 +4,7 @@ const Student = require('../models/student');
 
 studentRouter.post('/', async(req, res, next) => {
     try {
+        req.body.instrName = req.auth.username;
         req.body.assignedInstr = req.auth._id;
         const newStudent = new Student(req.body);
         const savedStudent = await newStudent.save();

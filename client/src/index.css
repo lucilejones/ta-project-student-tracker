@@ -3,3 +3,37 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.student-form-container {
+  width: 350px;
+  margin: 8px;
+  padding: 25px;
+  border: 1px solid teal;
+  text-align: center;
+}
+
+.student-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.student-form > div {
+  /* width: 75%; */
+  display: flex;
+  justify-content: space-between;
+}
+
+.student-form > button {
+  width: 100px;
+}
+
+.student-container {
+  width: 25vw;
+  padding: 25px;
+  margin: 8px;
+  border: 1px solid teal;
+}
+
+/* button {
+  width: 100px;
+} */
