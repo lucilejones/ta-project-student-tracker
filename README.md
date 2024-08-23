@@ -44,7 +44,7 @@ npm install
 4. **Create a '.env' file in the project directory with the following:**
 
 ```env
-MONGODB_URI=<your-mongodb-uri>
+MONGO_URI=<your-mongodb-uri>
 PORT=<your-port>
 SECRET=<your-jwt-secret>
 ```
