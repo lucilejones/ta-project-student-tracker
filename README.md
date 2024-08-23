@@ -67,7 +67,7 @@ npm run dev
 ## Usage
 
 - Sign up for an account.
-- Login to access a user's profile page.
+- Log in to access a user's profile page.
 - Add a new student with the input form.
 - Update and delete student information.
 - View a list of all students and their assigned instructors on the public page.
